@@ -1,0 +1,17 @@
+{
+  "name": "firebase-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "test",
+    "serve": "cd ui & npm run build & cd .. & node main.js",
+    "dev": "supervisor main.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.2",
+    "supervisor": "^0.12.0"
+  }
+}
