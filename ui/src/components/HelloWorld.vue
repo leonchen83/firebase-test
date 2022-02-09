@@ -8,7 +8,7 @@
 <script>
 import axios from 'axios'
 import { initializeApp } from "firebase/app";
-import { getAnalytics, logEvent } from "firebase/analytics";
+import { getAnalytics, logEvent, setUserProperties } from "firebase/analytics";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAWRp8LuQwBsvUajKdS3XdBSCNdRLfddsI",
@@ -39,7 +39,14 @@ export default {
     loadCount:  async function () {
       let result= await axios.get(`${process.env.VUE_APP_APIURL}/count`);
       this.count=result.data.changed;
-      logEvent(analytics, 'crash_event', {version : '1.1.0', account_id : '178187273', user_agent : 'chrome', company : '1', route : 'express', env : 'test', });
+      logEvent(analytics, 'crash_event', {version : '1.1.0', account_id : '178187273', user_agent : 'chrome', company : '1', route : 'express', env : 'test', exception : 'Missing required field. ', level : 'fatal'});
+      logEvent(analytics, 'goal_completion', { name: 'lever_puzzle'});
+      logEvent(analytics, 'exception', {   description: 'Missing required field.', fatal: true });
+      logEvent(analytics, 'sign_up', {   method: 'facebook' });
+      logEvent(analytics, 'sign_up', {   method: 'google' });
+      logEvent(analytics, 'login', {   method: 'google' });
+      logEvent(analytics, 'search', { search_term: 't-shirts'});
+      setUserProperties(analytics, { favorite_food: 'apples' });
       setTimeout(this.loadCount,3000);
     }
   }
